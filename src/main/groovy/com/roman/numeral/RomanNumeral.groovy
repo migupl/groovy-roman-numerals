@@ -9,6 +9,8 @@ import com.roman.symbol.RomanSymbol
  * See <a href="https://en.wikipedia.org/wiki/Roman_numerals#Basic_decimal_pattern">Roman Numerals. Basic number pattern</a>
  */
 class RomanNumeral {
+
+    final static ROMAN_NUMBER_RANGE = 1 .. 3000
     final static List<RomanDecimal> ROMAN_SUBTRACTIVE_NOTATION = (RomanSymbol.values() + RomanSustractiveSymbol.values()).sort { a, b ->
         b.number.compareTo(a.number)
     }
@@ -19,8 +21,7 @@ class RomanNumeral {
 
     RomanNumeral(int number) {
         this.number = number
-        valid = number > 0
-
+        valid = ROMAN_NUMBER_RANGE.contains(number)
         roman = valid ? getSubtractiveNotation(number) : ''
     }
 

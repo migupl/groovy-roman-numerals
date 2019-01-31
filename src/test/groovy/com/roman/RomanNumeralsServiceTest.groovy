@@ -19,6 +19,7 @@ class RomanNumeralsServiceTest extends Specification {
         decimal || expected
         -1      || ''
         0       || ''
+        3001    || ''
 
         1       || 'I'
         5       || 'V'
@@ -39,6 +40,7 @@ class RomanNumeralsServiceTest extends Specification {
         1990    || 'MCMXC'
         2014    || 'MMXIV'
         2019    || 'MMXIX'
+        3000    || 'MMM'
 
         expectedMessage = expected ? "'$expected'" : 'empty String'
     }
