@@ -8,9 +8,9 @@ enum RomanSustractiveSymbol implements RomanDecimal {
     IX(9),
     IV(4)
 
-    final int decimal
+    final int number
 
     RomanSustractiveSymbol(int decimal) {
-        this.decimal = decimal
+        this.number = decimal
     }
 }

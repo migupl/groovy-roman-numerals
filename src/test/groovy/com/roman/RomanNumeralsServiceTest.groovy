@@ -15,7 +15,7 @@ class RomanNumeralsServiceTest extends Specification {
         expect: "Expected Roman Numeral is #expected"
         expected == service.valueToSubtractiveNotation(decimal)
         
-        where: "Number is #decimal"
+        where: "Number is #number"
         decimal || expected
         -1      || ''
         0       || ''

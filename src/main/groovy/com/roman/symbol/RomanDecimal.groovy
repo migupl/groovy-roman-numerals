@@ -2,5 +2,5 @@ package com.roman.symbol
 
 interface RomanDecimal {
 
-    int getDecimal()
+    int getNumber()
 }

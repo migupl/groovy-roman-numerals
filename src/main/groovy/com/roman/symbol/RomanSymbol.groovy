@@ -9,9 +9,9 @@ enum RomanSymbol implements RomanDecimal {
     V(5),
     I(1)
 
-    final int decimal
+    final int number
 
     RomanSymbol(int decimal) {
-        this.decimal = decimal
+        this.number = decimal
     }
 }
