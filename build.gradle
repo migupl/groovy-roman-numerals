@@ -26,3 +26,20 @@ dependencies {
     // Use the awesome Spock testing and specification framework
     testImplementation 'org.spockframework:spock-core:1.2-groovy-2.5'
 }
+
+task calcRomanNumeral(type: JavaExec) {
+    description 'Getting Roman Numeral'
+
+    // Set main property to name of Groovy script class.
+    main = 'CalcRomanNumeral'
+
+    // Set classpath for running the Groovy script.
+    classpath = sourceSets.main.runtimeClasspath
+
+    // Pass command-line argument to script.
+    if (project.hasProperty('number')) {
+        args project.getProperty('number')
+    }
+}
+
+defaultTasks 'calcRomanNumeral'
