@@ -13,6 +13,8 @@ dependencies {
     testImplementation 'org.spockframework:spock-core:1.2-groovy-2.5'
 }
 
+version = 1.0
+
 task calcRomanNumeral(type: JavaExec) {
     description 'Getting Roman Numeral'
 
@@ -26,6 +28,25 @@ task calcRomanNumeral(type: JavaExec) {
     if (project.hasProperty('number')) {
         args project.getProperty('number')
     }
+}
+
+task doJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Roman Numerals Subtractive Notation',
+                'Implementation-Version': version,
+                'Main-Class': 'com.roman.service.RomanNumeralsService'
+    }
+
+    baseName = 'roman-numerals-all'
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    } with jar
+}
+
+jar {
+    exclude('CalcRomanNumeral.class')
 }
 
 defaultTasks 'calcRomanNumeral'
