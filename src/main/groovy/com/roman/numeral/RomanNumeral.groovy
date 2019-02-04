@@ -1,5 +1,6 @@
 package com.roman.numeral
 
+import com.roman.exception.InvalidRomanNumeralException
 import com.roman.symbol.RomanDecimal
 import com.roman.symbol.RomanSustractiveSymbol
 import com.roman.symbol.RomanSymbol
@@ -19,74 +20,57 @@ class RomanNumeral {
     final String roman
 
     RomanNumeral(int number) {
+        if (isInvalid(number)) {
+            println "$number out"
+            throw new InvalidRomanNumeralException("$number is not at range ${ROMAN_NUMBER_RANGE.from} .. ${ROMAN_NUMBER_RANGE.to}")
+        }
+
         this.number = number
-
-        roman = isValid(number) ? getSubtractiveNotation(number) : ''
+        roman = getSubtractiveNotation(number)
     }
 
-    RomanNumeral(String s) {
-        roman = s
-
-        if (s) {
-            try {
-                number = getNumberFromRoman(s)
-
-            } catch (Exception _) {
-                number = 0
-            }
-
-            number = valid ? number : 0
-
-        } else {
-            number = 0
-        }
-    }
-
-    boolean isValid() {
-        isValid(number)
-    }
-
-    static boolean isValid(number) {
-        ROMAN_NUMBER_RANGE.contains(number)
-    }
-
-    @Override
-    final String toString() {
-        roman
-    }
-
-    private static getNumberFromRoman(String s) {
-        def pos = 0
-        def subTotals = ROMAN_SUBTRACTIVE_NOTATION.collect { RomanDecimal romanNumeral ->
-            def (symbol, subTotal) = [
-                    romanNumeral as String,
-                    0
-            ]
-
-            while (s.drop(pos).startsWith(symbol)) {
-                pos += symbol.length()
-                subTotal += romanNumeral.number
-            }
-
-            subTotal
-        }
-
-        if (pos != s.length()) {
-            throw new Exception('Malformed Roman Numeral')
-        }
-
-        subTotals.sum()
+    private static boolean isInvalid(number) {
+        !ROMAN_NUMBER_RANGE.contains(number)
     }
 
     private static String getSubtractiveNotation(int value) {
         ROMAN_SUBTRACTIVE_NOTATION.collect { RomanDecimal romanNumeral ->
             int times = value.intdiv(romanNumeral.number)
-            if (times) {
-                value -= times * romanNumeral.number
-                return (1..times).collect { romanNumeral }.join()
-            }
 
-            ''
+            value -= times * romanNumeral.number
+            (romanNumeral as String) * times
         }.join()
+    }
+
+    RomanNumeral(String s) {
+        roman = s
+        number = getNumberFromRoman(s)
+
+        if (isInvalid(number)) {
+            throw new InvalidRomanNumeralException(exceptionMessage)
+        }
+    }
+
+    private String getExceptionMessage() {
+        "'$roman' is not a valid Roman Numeral"
+    }
+
+    private static getNumberFromRoman(String s) {
+        def (pos, subTotals) = [ 0, 0 ]
+        ROMAN_SUBTRACTIVE_NOTATION.each { RomanDecimal romanNumeral ->
+            def symbol = romanNumeral as String
+
+            while (s.drop(pos).startsWith(symbol)) {
+                pos += symbol.length()
+                subTotals += romanNumeral.number
+            }
+        }
+
+        pos == s.length() ? subTotals : 0
+    }
+
+    @Override
+    final String toString() {
+        roman
     }
 }

@@ -1,5 +1,6 @@
 package com.roman
 
+import com.roman.exception.InvalidRomanNumeralException
 import com.roman.service.RomanNumeralsService
 import spock.lang.Shared
 import spock.lang.Specification
@@ -11,16 +12,24 @@ class RomanNumeralsServiceTest extends Specification {
     @Shared
     def service = RomanNumeralsService.instance
 
-    def "Roman Numeral must be #expectedMessage When valueToSubtractiveNotation(#decimal)"() {
+    def "A InvalidRomanNumeralException is expected When valueToSubtractiveNotation(#number)"() {
+        when: "valueToSubtractiveNotation(#number) is called"
+        service.valueToSubtractiveNotation(number)
+
+        then: "Expected  InvalidRomanNumeralException"
+        def ex = thrown InvalidRomanNumeralException
+        "$number is not at range 1 .. 3000" == ex.message
+
+        where: "Number is #number"
+        number << [ -1, 0, 3001 ]
+    }
+
+    def "Roman Numeral must be #expectedMessage When valueToSubtractiveNotation(#number)"() {
         expect: "Expected Roman Numeral is #expected"
-        expected == service.valueToSubtractiveNotation(decimal)
+        expected == service.valueToSubtractiveNotation(number)
         
         where: "Number is #number"
-        decimal || expected
-        -1      || ''
-        0       || ''
-        3001    || ''
-
+        number  || expected
         1       || 'I'
         5       || 'V'
         10      || 'X'
@@ -38,22 +47,31 @@ class RomanNumeralsServiceTest extends Specification {
         1776    || 'MDCCLXXVI'
         1954    || 'MCMLIV'
         1990    || 'MCMXC'
-        2014    || 'MMXIV'
         2019    || 'MMXIX'
+
         3000    || 'MMM'
 
         expectedMessage = expected ? "'$expected'" : 'empty String'
     }
 
+    def "A InvalidRomanNumeralException is expected When subtractiveNotationToDecimal('#romanNumeral')"() {
+        when: "subtractiveNotationToDecimal(#number) is called"
+        service.subtractiveNotationToDecimal(romanNumeral)
+
+        then: "Expected InvalidRomanNumeralException"
+        def ex = thrown InvalidRomanNumeralException
+        "'$romanNumeral' is not a valid Roman Numeral" == ex.message
+
+        where: "Roman numeral is '#romanNumeral'"
+        romanNumeral << [ '', 'IXX' ]
+    }
+
     def "Decimal must be #expected When subtractiveNotationToDecimal('#romanNumeral')"() {
-        expect: "Expected decimal is #decimal"
+        expect: "Expected number is #expected"
         expected == service.subtractiveNotationToDecimal(romanNumeral)
 
         where: "Roman numeral is '#romanNumeral'"
         romanNumeral || expected
-        ''           || 0
-        'IXX'        || 0
-
         'I'          || 1
         'V'          || 5
         'X'          || 10
@@ -71,8 +89,8 @@ class RomanNumeralsServiceTest extends Specification {
         'MDCCLXXVI'  || 1776
         'MCMLIV'     || 1954
         'MCMXC'      || 1990
-        'MMXIV'      || 2014
         'MMXIX'      || 2019
+
         'MMM'        || 3000
     }
 }
