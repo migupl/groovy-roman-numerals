@@ -10,4 +10,10 @@ class RomanNumeralsService {
 
         romanNumeral as String
     }
+
+    int subtractiveNotationToDecimal(String roman) {
+        RomanNumeral romanNumeral = new RomanNumeral(roman)
+
+        romanNumeral.number
+    }
 }

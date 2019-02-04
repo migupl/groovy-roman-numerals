@@ -16,13 +16,38 @@ class RomanNumeral {
     }
 
     final int number
-    final boolean valid
     final String roman
 
     RomanNumeral(int number) {
         this.number = number
-        valid = ROMAN_NUMBER_RANGE.contains(number)
-        roman = valid ? getSubtractiveNotation(number) : ''
+
+        roman = isValid(number) ? getSubtractiveNotation(number) : ''
+    }
+
+    RomanNumeral(String s) {
+        roman = s
+
+        if (s) {
+            try {
+                number = getNumberFromRoman(s)
+
+            } catch (Exception _) {
+                number = 0
+            }
+
+            number = valid ? number : 0
+
+        } else {
+            number = 0
+        }
+    }
+
+    boolean isValid() {
+        isValid(number)
+    }
+
+    static boolean isValid(number) {
+        ROMAN_NUMBER_RANGE.contains(number)
     }
 
     @Override
@@ -30,7 +55,30 @@ class RomanNumeral {
         roman
     }
 
-    private String getSubtractiveNotation(int value) {
+    private static getNumberFromRoman(String s) {
+        def pos = 0
+        def subTotals = ROMAN_SUBTRACTIVE_NOTATION.collect { RomanDecimal romanNumeral ->
+            def (symbol, subTotal) = [
+                    romanNumeral as String,
+                    0
+            ]
+
+            while (s.drop(pos).startsWith(symbol)) {
+                pos += symbol.length()
+                subTotal += romanNumeral.number
+            }
+
+            subTotal
+        }
+
+        if (pos != s.length()) {
+            throw new Exception('Malformed Roman Numeral')
+        }
+
+        subTotals.sum()
+    }
+
+    private static String getSubtractiveNotation(int value) {
         ROMAN_SUBTRACTIVE_NOTATION.collect { RomanDecimal romanNumeral ->
             int times = value.intdiv(romanNumeral.number)
             if (times) {

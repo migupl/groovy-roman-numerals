@@ -44,4 +44,35 @@ class RomanNumeralsServiceTest extends Specification {
 
         expectedMessage = expected ? "'$expected'" : 'empty String'
     }
+
+    def "Decimal must be #expected When subtractiveNotationToDecimal('#romanNumeral')"() {
+        expect: "Expected decimal is #decimal"
+        expected == service.subtractiveNotationToDecimal(romanNumeral)
+
+        where: "Roman numeral is '#romanNumeral'"
+        romanNumeral || expected
+        ''           || 0
+        'IXX'        || 0
+
+        'I'          || 1
+        'V'          || 5
+        'X'          || 10
+        'L'          || 50
+        'C'          || 100
+        'D'          || 500
+        'M'          || 1000
+
+        'XXXIX'      || 39
+        'CLX'        || 160
+        'CCVII'      || 207
+        'CCXLVI'     || 246
+        'CDXXI'      || 421
+        'MLXVI'      || 1066
+        'MDCCLXXVI'  || 1776
+        'MCMLIV'     || 1954
+        'MCMXC'      || 1990
+        'MMXIV'      || 2014
+        'MMXIX'      || 2019
+        'MMM'        || 3000
+    }
 }
