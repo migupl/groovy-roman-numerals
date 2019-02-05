@@ -18,10 +18,10 @@ class RomanNumeralsServiceTest extends Specification {
 
         then: "Expected  InvalidRomanNumeralException"
         def ex = thrown InvalidRomanNumeralException
-        "$number is not at range 1 .. 3000" == ex.message
+        "$number is not at range 1 .. 3999" == ex.message
 
         where: "Number is #number"
-        number << [ -1, 0, 3001 ]
+        number << [ -1, 0, 4000 ]
     }
 
     def "Roman Numeral must be #expectedMessage When valueToSubtractiveNotation(#number)"() {
@@ -49,7 +49,7 @@ class RomanNumeralsServiceTest extends Specification {
         1990    || 'MCMXC'
         2019    || 'MMXIX'
 
-        3000    || 'MMM'
+        3999    || 'MMMCMXCIX'
 
         expectedMessage = expected ? "'$expected'" : 'empty String'
     }

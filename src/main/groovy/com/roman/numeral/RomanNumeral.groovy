@@ -11,7 +11,7 @@ import com.roman.symbol.RomanSymbol
  */
 class RomanNumeral {
 
-    final static ROMAN_NUMBER_RANGE = 1 .. 3000
+    final static ROMAN_NUMBER_RANGE = 1 .. 3999
     final static List<RomanDecimal> ROMAN_SUBTRACTIVE_NOTATION = (RomanSymbol.values() + RomanSustractiveSymbol.values()).sort { a, b ->
         b.number.compareTo(a.number)
     }
@@ -21,7 +21,6 @@ class RomanNumeral {
 
     RomanNumeral(int number) {
         if (isInvalid(number)) {
-            println "$number out"
             throw new InvalidRomanNumeralException("$number is not at range ${ROMAN_NUMBER_RANGE.from} .. ${ROMAN_NUMBER_RANGE.to}")
         }
 
