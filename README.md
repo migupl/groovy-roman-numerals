@@ -1,6 +1,6 @@
 # Roman Numerals
 
-Roman Numerals Subtractive Notation implementation ([Basic decimal pattern][1])
+Roman Numerals Subtractive Notation ([Basic decimal pattern][1])
 
 Use
 ```bash
