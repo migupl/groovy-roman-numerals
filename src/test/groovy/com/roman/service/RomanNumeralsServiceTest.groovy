@@ -1,7 +1,6 @@
-package com.roman
+package com.roman.service
 
 import com.roman.exception.InvalidRomanNumeralException
-import com.roman.service.RomanNumeralsService
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -16,7 +15,7 @@ class RomanNumeralsServiceTest extends Specification {
         when: "valueToSubtractiveNotation(#number) is called"
         service.valueToSubtractiveNotation(number)
 
-        then: "Expected  InvalidRomanNumeralException"
+        then: "Expected InvalidRomanNumeralException"
         def ex = thrown InvalidRomanNumeralException
         "$number is not at range 1 .. 3999" == ex.message
 
@@ -70,8 +69,8 @@ class RomanNumeralsServiceTest extends Specification {
         expect: "Expected number is #expected"
         expected == service.subtractiveNotationToDecimal(roman)
 
-        where: "Roman numeral is '#roman'"
-        roman        || expected
+        where: "Roman is '#roman'"
+        roman || expected
         'I'          || 1
         'V'          || 5
         'X'          || 10
