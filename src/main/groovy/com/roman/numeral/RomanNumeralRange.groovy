@@ -2,15 +2,17 @@ package com.roman.numeral
 
 final class RomanNumeralRange {
 
-    private final static Range<Integer> ROMAN_NUMBER_RANGE = 1 .. 3999
+    private static final int FROM = 1
+    private static final int TO = 3999
 
-    final static int INVALID_VALUE = ROMAN_NUMBER_RANGE.from.previous()
+    static final int INVALID_VALUE = FROM.previous()
 
     static String getRange() {
-        "${ROMAN_NUMBER_RANGE.from} .. ${ROMAN_NUMBER_RANGE.to}"
+        "$FROM .. $TO"
     }
 
     static boolean isValid(int number) {
-        ROMAN_NUMBER_RANGE.contains number
+        !(number < FROM ||
+                number > TO)
     }
 }

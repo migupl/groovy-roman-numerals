@@ -5,15 +5,22 @@ import com.roman.symbol.RomanSustractiveSymbol
 import com.roman.symbol.RomanSymbol
 import com.roman.validation.impl.NumberInRomanNumeralRangeRule
 import com.roman.validation.impl.RomanFullParsedRule
+
 /**
  * Roman Numeral Subtractive Notation
  * See <a href="https://en.wikipedia.org/wiki/Roman_numerals#Basic_decimal_pattern">Roman Numerals. Basic number pattern</a>
  */
 class RomanNumeral {
 
-    private final static List<RomanDecimal> ROMAN_SUBTRACTIVE_NOTATION = (RomanSymbol.values() + RomanSustractiveSymbol.values()).sort { a, b ->
-        b.number.compareTo(a.number)
-    }
+    private final static List<RomanDecimal> ROMAN_BY_SYMBOL = (RomanSymbol.values() + RomanSustractiveSymbol.values()).
+            sort { a, b ->
+                b.number.compareTo(a.number)
+            }
+
+    private final static TreeMap<Integer, String> ROMANS_BY_NUMBER = (RomanSymbol.values() + RomanSustractiveSymbol.values()).
+            collectEntries { RomanDecimal romanDecimal ->
+                [ (romanDecimal.number): romanDecimal as String ]
+            }
 
     final int number
     final String roman
@@ -27,12 +34,17 @@ class RomanNumeral {
     }
 
     private static String getSubtractiveNotation(int value) {
-        ROMAN_SUBTRACTIVE_NOTATION.collect { RomanDecimal romanNumeral ->
-            int times = value.intdiv(romanNumeral.number)
+        def res = []
+        while (value > 0) {
+            def number = ROMANS_BY_NUMBER.lowerKey(value + 1)
 
-            value -= times * romanNumeral.number
-            (romanNumeral as String) * times
-        }.join()
+            int times = value.intdiv(number)
+
+            value -= times * number
+            res << (ROMANS_BY_NUMBER[number] as String) * times
+        }
+
+        res.join()
     }
 
     RomanNumeral(String roman) {
@@ -43,9 +55,10 @@ class RomanNumeral {
         rule.validate(this)
     }
 
-    private static getNumberFromRoman(String roman) {
+    private static int getNumberFromRoman(String roman) {
         def (pos, subTotals) = [ 0, 0 ]
-        ROMAN_SUBTRACTIVE_NOTATION.each { RomanDecimal romanNumeral ->
+
+        ROMAN_BY_SYMBOL.each { RomanDecimal romanNumeral ->
             def symbol = romanNumeral as String
 
             while (roman.drop(pos).startsWith(symbol)) {
@@ -54,13 +67,6 @@ class RomanNumeral {
             }
         }
 
-        println "-- $roman > ${roman.drop(pos)}"
-
         roman.drop(pos) ? RomanNumeralRange.INVALID_VALUE : subTotals
-    }
-
-    @Override
-    final String toString() {
-        roman
     }
 }

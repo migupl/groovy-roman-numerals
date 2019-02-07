@@ -13,9 +13,11 @@ class RomanNumeralsServiceTest extends Specification {
 
     def "A InvalidRomanNumeralException is expected When valueToSubtractiveNotation(#number)"() {
         when: "valueToSubtractiveNotation(#number) is called"
+        println "-- $number (${number.class.simpleName})"
+
         service.valueToSubtractiveNotation(number)
 
-        then: "Expected InvalidRomanNumeralException"
+        then: "Expected  InvalidRomanNumeralException"
         def ex = thrown InvalidRomanNumeralException
         "$number is not at range 1 .. 3999" == ex.message
 
@@ -26,7 +28,7 @@ class RomanNumeralsServiceTest extends Specification {
     def "Roman Numeral must be #expectedMessage When valueToSubtractiveNotation(#number)"() {
         expect: "Expected Roman Numeral is #expected"
         expected == service.valueToSubtractiveNotation(number)
-        
+
         where: "Number is #number"
         number  || expected
         1       || 'I'
@@ -69,8 +71,8 @@ class RomanNumeralsServiceTest extends Specification {
         expect: "Expected number is #expected"
         expected == service.subtractiveNotationToDecimal(roman)
 
-        where: "Roman is '#roman'"
-        roman || expected
+        where: "Roman numeral is '#roman'"
+        roman        || expected
         'I'          || 1
         'V'          || 5
         'X'          || 10
@@ -90,6 +92,6 @@ class RomanNumeralsServiceTest extends Specification {
         'MCMXC'      || 1990
         'MMXIX'      || 2019
 
-        'MMM'        || 3000
+        'MMMCMXCIX'  || 3999
     }
 }

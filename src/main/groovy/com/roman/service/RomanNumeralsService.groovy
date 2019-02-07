@@ -8,7 +8,7 @@ class RomanNumeralsService {
     String valueToSubtractiveNotation(int value) {
         RomanNumeral romanNumeral = new RomanNumeral(value)
 
-        romanNumeral as String
+        romanNumeral.roman
     }
 
     int subtractiveNotationToDecimal(String roman) {
