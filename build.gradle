@@ -28,6 +28,10 @@ task calcRomanNumeral(type: JavaExec) {
     if (project.hasProperty('number')) {
         args project.getProperty('number')
     }
+
+    doFirst {
+        ignoreExitValue = true
+    }
 }
 
 task doJar(type: Jar) {
