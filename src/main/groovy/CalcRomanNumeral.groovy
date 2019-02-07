@@ -24,6 +24,6 @@ if (args) {
 
 def helpMessage() {
     println """
-Use: ./gradlew --number=<number>  // Number in 1 .. 3000
+Use: ./gradlew --number=<number>  // Number in 1 .. 3999
 """
 }
