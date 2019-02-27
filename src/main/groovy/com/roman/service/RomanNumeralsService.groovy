@@ -2,6 +2,7 @@ package com.roman.service
 
 import com.roman.numeral.RomanNumeral
 import com.roman.numeral.RomanNumeralNumber
+import com.roman.numeral.RomanNumeralSymbol
 
 @Singleton
 class RomanNumeralsService {
@@ -11,11 +12,12 @@ class RomanNumeralsService {
 
         RomanNumeral romanNumeral = new RomanNumeral(romanNumber)
 
-        romanNumeral.roman
+        romanNumeral.roman.value
     }
 
     int subtractiveNotationToDecimal(String roman) {
-        RomanNumeral romanNumeral = new RomanNumeral(roman)
+        RomanNumeralSymbol romanSymbol = new RomanNumeralSymbol(roman)
+        RomanNumeral romanNumeral = new RomanNumeral(romanSymbol)
 
         romanNumeral.number.value
     }

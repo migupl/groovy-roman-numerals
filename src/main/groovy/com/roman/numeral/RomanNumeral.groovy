@@ -23,7 +23,7 @@ class RomanNumeral {
             }
 
     final RomanNumeralNumber number
-    final String roman
+    final RomanNumeralSymbol roman
 
     RomanNumeral(RomanNumeralNumber number) {
         def rule = new NumberInRomanNumeralRangeRule()
@@ -33,7 +33,7 @@ class RomanNumeral {
         this.roman = getSubtractiveNotation(number.value)
     }
 
-    private static String getSubtractiveNotation(int value) {
+    private static RomanNumeralSymbol getSubtractiveNotation(int value) {
         def res = []
         while (value > 0) {
             def number = ROMANS_BY_NUMBER.lowerKey(value + 1)
@@ -44,12 +44,12 @@ class RomanNumeral {
             res << (ROMANS_BY_NUMBER[number] as String) * times
         }
 
-        res.join()
+        new RomanNumeralSymbol(res.join())
     }
 
-    RomanNumeral(String roman) {
+    RomanNumeral(RomanNumeralSymbol roman) {
         this.roman = roman
-        this.number = getNumberFromRoman(roman)
+        this.number = getNumberFromRoman(roman.value)
 
         def rule = new RomanFullParsedRule()
         rule.validate(this)

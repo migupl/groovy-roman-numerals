@@ -11,7 +11,7 @@ class RomanFullParsedRule implements RomanNumeralRule<RomanNumeral> {
     @Override
     def validate(RomanNumeral romanNumeral) throws InvalidRomanNumeralException {
         if (!romanNumeral.roman || !isValid(romanNumeral.number.value)) {
-            throw new InvalidRomanNumeralException("'${romanNumeral.roman}' is not a valid Roman")
+            throw new InvalidRomanNumeralException("'${romanNumeral.roman.value}' is not a valid Roman")
         }
     }
 }
