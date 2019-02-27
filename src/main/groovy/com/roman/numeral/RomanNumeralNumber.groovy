@@ -13,7 +13,6 @@ class RomanNumeralNumber extends RomanNumeralTemplate<Integer, RomanNumeralSymbo
                 [ (romanDecimal.number): romanDecimal as String ]
             }
 
-
     RomanNumeralNumber(int number, RomanNumeralRule<RomanNumeralNumber> rule = new RomanNumeralNumberRangeRule()) {
         super(number, rule)
     }
@@ -21,13 +20,14 @@ class RomanNumeralNumber extends RomanNumeralTemplate<Integer, RomanNumeralSymbo
     @Override
     RomanNumeralSymbol transform() {
         def (total, res) = [ value, []]
+
         while (total > 0) {
-            def number = ROMANS_BY_NUMBER.lowerKey(total + 1)
+            def number = ROMANS_BY_NUMBER.lowerEntry(total + 1)
 
-            int times = total.intdiv(number)
+            int times = total.intdiv(number.key)
 
-            total -= times * number
-            res << (ROMANS_BY_NUMBER[number] as String) * times
+            total -= times * number.key
+            res << number.value * times
         }
 
         new RomanNumeralSymbol(res.join())
