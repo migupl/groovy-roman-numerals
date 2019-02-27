@@ -5,7 +5,7 @@ import com.roman.numeral.RomanNumeralNumber
 import com.roman.numeral.RomanNumeralRange
 import com.roman.validation.RomanNumeralRule
 
-class NumberInRomanNumeralRangeRule implements RomanNumeralRule<RomanNumeralNumber> {
+class RomanNumeralNumberRangeRule implements RomanNumeralRule<RomanNumeralNumber> {
 
     @Override
     def validate(RomanNumeralNumber number) throws InvalidRomanNumeralException {

@@ -12,13 +12,13 @@ class RomanNumeralsService {
 
         RomanNumeral romanNumeral = new RomanNumeral(romanNumber)
 
-        romanNumeral.roman.value
+        romanNumeral.symbol
     }
 
     int subtractiveNotationToDecimal(String roman) {
         RomanNumeralSymbol romanSymbol = new RomanNumeralSymbol(roman)
         RomanNumeral romanNumeral = new RomanNumeral(romanSymbol)
 
-        romanNumeral.number.value
+        romanNumeral.value
     }
 }

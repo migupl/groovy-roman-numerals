@@ -3,6 +3,8 @@ package com.roman.numeral
 import com.roman.symbol.RomanDecimal
 import com.roman.symbol.RomanSustractiveSymbol
 import com.roman.symbol.RomanSymbol
+import com.roman.validation.RomanNumeralRule
+import com.roman.validation.impl.RomanNumeralNumberRangeRule
 
 class RomanNumeralNumber implements RomanNumeralElement<RomanNumeralSymbol> {
 
@@ -14,8 +16,9 @@ class RomanNumeralNumber implements RomanNumeralElement<RomanNumeralSymbol> {
 
     final int value
 
-    RomanNumeralNumber(int number) {
+    RomanNumeralNumber(int number, RomanNumeralRule<RomanNumeralNumber> rule = new RomanNumeralNumberRangeRule()) {
         value = number
+        rule.validate(this)
     }
 
     @Override

@@ -1,8 +1,11 @@
 package com.roman.numeral
 
+import com.roman.exception.InvalidRomanNumeralException
 import com.roman.symbol.RomanDecimal
 import com.roman.symbol.RomanSustractiveSymbol
 import com.roman.symbol.RomanSymbol
+import com.roman.validation.RomanNumeralRule
+import com.roman.validation.impl.RomanNumeralSymbolRule
 
 class RomanNumeralSymbol implements RomanNumeralElement<RomanNumeralNumber> {
 
@@ -13,8 +16,9 @@ class RomanNumeralSymbol implements RomanNumeralElement<RomanNumeralNumber> {
 
     final String value
 
-    RomanNumeralSymbol(String roman) {
+    RomanNumeralSymbol(String roman, RomanNumeralRule<RomanNumeralSymbol> rule = new RomanNumeralSymbolRule()) {
         value = roman
+        rule.validate(this)
     }
 
     @Override
@@ -30,7 +34,10 @@ class RomanNumeralSymbol implements RomanNumeralElement<RomanNumeralNumber> {
             }
         }
 
-        // TODO: change this
-        new RomanNumeralNumber(value.drop(pos) ? RomanNumeralRange.INVALID_VALUE : subTotals)
+        if (value.drop(pos)) {
+            throw new InvalidRomanNumeralException("'$value' is a malformed Roman symbol")
+        }
+
+        new RomanNumeralNumber(subTotals)
     }
 }
