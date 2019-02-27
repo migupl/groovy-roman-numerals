@@ -21,8 +21,7 @@ $ ./gradlew -q -Pnumber=2019
 
 Jar file is generated at _libs/_ folder using Gradle task **doJar**
 ```bash
-$ ./gradlew -q doJar$
-
+$ ./gradlew -q doJar
 ```
 
 [1]: https://en.wikipedia.org/wiki/Roman_numerals#Basic_decimal_pattern
