@@ -1,15 +1,16 @@
 package com.roman.validation.impl
 
 import com.roman.exception.InvalidRomanNumeralException
+import com.roman.numeral.RomanNumeralNumber
 import com.roman.numeral.RomanNumeralRange
 import com.roman.validation.RomanNumeralRule
 
-class NumberInRomanNumeralRangeRule implements RomanNumeralRule<Integer> {
+class NumberInRomanNumeralRangeRule implements RomanNumeralRule<RomanNumeralNumber> {
 
     @Override
-    def validate(Integer number) throws InvalidRomanNumeralException {
-        if (!RomanNumeralRange.isValid(number)) {
-            throw new InvalidRomanNumeralException("${number} is not at range ${RomanNumeralRange.range}")
+    def validate(RomanNumeralNumber number) throws InvalidRomanNumeralException {
+        if (!RomanNumeralRange.isValid(number.value)) {
+            throw new InvalidRomanNumeralException("${number.value} is not at range ${RomanNumeralRange.range}")
         }
     }
 }

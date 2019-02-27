@@ -22,15 +22,15 @@ class RomanNumeral {
                 [ (romanDecimal.number): romanDecimal as String ]
             }
 
-    final int number
+    final RomanNumeralNumber number
     final String roman
 
-    RomanNumeral(int number) {
+    RomanNumeral(RomanNumeralNumber number) {
         def rule = new NumberInRomanNumeralRangeRule()
         rule.validate(number)
 
         this.number = number
-        this.roman = getSubtractiveNotation(number)
+        this.roman = getSubtractiveNotation(number.value)
     }
 
     private static String getSubtractiveNotation(int value) {
@@ -55,7 +55,7 @@ class RomanNumeral {
         rule.validate(this)
     }
 
-    private static int getNumberFromRoman(String roman) {
+    private static RomanNumeralNumber getNumberFromRoman(String roman) {
         def (pos, subTotals) = [ 0, 0 ]
 
         ROMAN_BY_SYMBOL.each { RomanDecimal romanNumeral ->
@@ -67,6 +67,7 @@ class RomanNumeral {
             }
         }
 
-        roman.drop(pos) ? RomanNumeralRange.INVALID_VALUE : subTotals
+        // TODO: change this
+        new RomanNumeralNumber(roman.drop(pos) ? RomanNumeralRange.INVALID_VALUE : subTotals)
     }
 }
