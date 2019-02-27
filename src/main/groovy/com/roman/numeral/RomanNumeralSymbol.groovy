@@ -7,23 +7,22 @@ import com.roman.symbol.RomanSymbol
 import com.roman.validation.RomanNumeralRule
 import com.roman.validation.impl.RomanNumeralSymbolRule
 
-class RomanNumeralSymbol implements RomanNumeralElement<RomanNumeralNumber> {
+class RomanNumeralSymbol extends RomanNumeralTemplate<String, RomanNumeralNumber> {
 
     private final static List<RomanDecimal> ROMAN_BY_SYMBOL = (RomanSymbol.values() + RomanSustractiveSymbol.values()).
             sort { a, b ->
                 b.number.compareTo(a.number)
             }
 
-    final String value
-
     RomanNumeralSymbol(String roman, RomanNumeralRule<RomanNumeralSymbol> rule = new RomanNumeralSymbolRule()) {
-        value = roman
-        rule.validate(this)
+        super(roman, rule)
     }
 
     @Override
     RomanNumeralNumber transform() {
         def (pos, subTotals) = [ 0, 0 ]
+
+        println "... $value"
 
         ROMAN_BY_SYMBOL.each { RomanDecimal romanNumeral ->
             def symbol = romanNumeral as String

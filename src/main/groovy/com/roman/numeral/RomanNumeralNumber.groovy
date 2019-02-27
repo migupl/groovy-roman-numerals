@@ -6,7 +6,7 @@ import com.roman.symbol.RomanSymbol
 import com.roman.validation.RomanNumeralRule
 import com.roman.validation.impl.RomanNumeralNumberRangeRule
 
-class RomanNumeralNumber implements RomanNumeralElement<RomanNumeralSymbol> {
+class RomanNumeralNumber extends RomanNumeralTemplate<Integer, RomanNumeralSymbol> {
 
     private final static TreeMap<Integer, String> ROMANS_BY_NUMBER = (RomanSymbol.values() + RomanSustractiveSymbol.values()).
             collectEntries { RomanDecimal romanDecimal ->
@@ -14,11 +14,8 @@ class RomanNumeralNumber implements RomanNumeralElement<RomanNumeralSymbol> {
             }
 
 
-    final int value
-
     RomanNumeralNumber(int number, RomanNumeralRule<RomanNumeralNumber> rule = new RomanNumeralNumberRangeRule()) {
-        value = number
-        rule.validate(this)
+        super(number, rule)
     }
 
     @Override
