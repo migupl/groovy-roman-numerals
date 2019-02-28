@@ -31,6 +31,6 @@ class RomanNumeralNumber extends RomanNumeralTemplate<Integer, RomanNumeralSymbo
             res << number.value * times
         }
 
-        new RomanNumeralSymbol(res.join())
+        new RomanNumeralSymbol(res.join(), NO_VALIDATION)
     }
 }

@@ -2,8 +2,11 @@ package com.roman.numeral
 
 import com.roman.exception.InvalidRomanNumeralException
 import com.roman.validation.RomanNumeralRule
+import com.roman.validation.impl.NoValidationRule
 
 abstract class RomanNumeralTemplate<T, V> {
+
+    protected final static NO_VALIDATION = new NoValidationRule()
 
     final T value
 

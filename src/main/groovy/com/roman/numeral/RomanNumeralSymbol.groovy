@@ -35,6 +35,6 @@ class RomanNumeralSymbol extends RomanNumeralTemplate<String, RomanNumeralNumber
             throw new InvalidRomanNumeralException("'$value' is a malformed Roman symbol")
         }
 
-        new RomanNumeralNumber(subTotals)
+        new RomanNumeralNumber(subTotals, NO_VALIDATION)
     }
 }
