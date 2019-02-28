@@ -13,8 +13,6 @@ class RomanNumeralsServiceTest extends Specification {
 
     def "A InvalidRomanNumeralException(#number is not at range 1 .. 3999) is expected When valueToSubtractiveNotation(#number)"() {
         when: "valueToSubtractiveNotation(#number) is called"
-        println "-- $number (${number.class.simpleName})"
-
         service.valueToSubtractiveNotation(number)
 
         then: "Expected  InvalidRomanNumeralException"
