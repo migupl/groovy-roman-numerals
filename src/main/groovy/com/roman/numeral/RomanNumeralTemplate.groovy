@@ -1,5 +1,6 @@
 package com.roman.numeral
 
+import com.roman.exception.InvalidRomanNumeralException
 import com.roman.validation.RomanNumeralRule
 
 abstract class RomanNumeralTemplate<T, V> {
@@ -15,5 +16,5 @@ abstract class RomanNumeralTemplate<T, V> {
         rule.validate(this)
     }
 
-    abstract V transform()
+    abstract V transform() throws InvalidRomanNumeralException
 }

@@ -19,10 +19,8 @@ class RomanNumeralSymbol extends RomanNumeralTemplate<String, RomanNumeralNumber
     }
 
     @Override
-    RomanNumeralNumber transform() {
+    RomanNumeralNumber transform() throws InvalidRomanNumeralException {
         def (pos, subTotals) = [ 0, 0 ]
-
-        println "... $value"
 
         ROMAN_BY_SYMBOL.each { RomanDecimal romanNumeral ->
             def symbol = romanNumeral as String

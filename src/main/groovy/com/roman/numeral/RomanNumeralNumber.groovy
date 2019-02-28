@@ -1,5 +1,6 @@
 package com.roman.numeral
 
+import com.roman.exception.InvalidRomanNumeralException
 import com.roman.symbol.RomanDecimal
 import com.roman.symbol.RomanSustractiveSymbol
 import com.roman.symbol.RomanSymbol
@@ -18,7 +19,7 @@ class RomanNumeralNumber extends RomanNumeralTemplate<Integer, RomanNumeralSymbo
     }
 
     @Override
-    RomanNumeralSymbol transform() {
+    RomanNumeralSymbol transform() throws InvalidRomanNumeralException {
         def (total, res) = [ value, []]
 
         while (total > 0) {
